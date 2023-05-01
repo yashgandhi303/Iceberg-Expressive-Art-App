@@ -72,7 +72,7 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
             name: String(existingData?.name),
             image: String(existingData?.image),
             value: Number(value),
-            info: String(existingData?.info),
+            info: String(info),
         });
 
         await createdata.save();
