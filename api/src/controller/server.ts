@@ -53,7 +53,8 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
       }
 
       if (userData) {
-        
+
+          
           let infovalue = info.split(" ");
           value = infovalue.length > 5 ? Number(existingData?.value) + 5 * 5 + 10 * (infovalue.length - 5) : Number(existingData?.value) + 5 * infovalue.length;
           userData.name = name;
@@ -63,7 +64,9 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
           await userData.save();
           return res.status(202).json({code: 202, message: "updated NFT"});
       } else {
-
+          if ( String(info) === String(existingData?.info)) {
+            return res.status(400).json({code: 400, message: "we cannot create add this data because info has not changed!"});
+          }
           let createdata = new nftschema({
             _id: new mongoose.Types.ObjectId(_id),
             name: String(existingData?.name),
