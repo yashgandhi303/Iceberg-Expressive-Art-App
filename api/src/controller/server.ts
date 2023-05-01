@@ -1,6 +1,11 @@
 
+<<<<<<< HEAD
 import { Request, Response  } from "express";
 import {NFT} from "../model/basenft";
+=======
+import { RequestHandler, Request, Response } from "express";
+import { NFT } from "../model/basenft";
+>>>>>>> 528cd50e7b459c8c13cdaa57bcd04c7420f4d4f2
 import mongoose from "mongoose";
 import isEmpty from "../utils/isEmpty";
 
@@ -14,8 +19,8 @@ export const getBaseNft = async (req: Request, res: Response ) => {
     }
 }
 
-export const getUserNft = async (req: Request, res: Response ) => {
-    try {
+export const getUserNft = async (req: Request, res: Response) => {
+  try {
 
         let { user_name } = req.body;
 
