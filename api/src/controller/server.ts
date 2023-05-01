@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 export const getBaseNft = async (req: Request, res: Response ) => {
     try {
-        let data = await NFT("user_liya").find({}).sort({value: "desc"});
+        let data = await NFT("base_nfts").find({}).sort({value: "desc"});
         return res.status(200).json({code: 200, data: data, message: 'sucsess'});
     } catch (err) {
         console.log(err);
@@ -15,7 +15,9 @@ export const getBaseNft = async (req: Request, res: Response ) => {
 
 export const getUserNft = async (req: Request, res: Response ) => {
     try {
-        let data = await NFT("user_liya").find({}).sort({value: "desc"});
+
+        let { user_name } = req.body;
+        let data = await NFT(user_name).find({}).sort({value: "desc"});
         return res.status(200).json({code: 200, data: data, message: 'sucsess'});
     } catch (err) {
         console.log(err);
@@ -81,6 +83,8 @@ export const updateNft = async (req: Request, res: Response ) => {
           userdata.info = ele.info;
           userdata.image = ele.image;
           await userdata.save()
+      } else {
+        return res.status(400).json({code: 400, message: "invalid request"});
       }
       
     })
