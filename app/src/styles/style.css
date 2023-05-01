@@ -1,0 +1,14 @@
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 70px;
+    width: 100%;
+    overflow: hidden;
+    padding-left: 4px;
+    backdrop-filter: blur(20px);
+    background-image: linear-gradient(to left bottom, #052837, #00556a, #00878a, #00ba8f, #12eb79);
+    
+}
