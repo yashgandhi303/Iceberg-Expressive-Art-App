@@ -52,7 +52,7 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
         return res.status(400).json({code: 400, message: "Base Nft collection is Empty!"});
       }
 
-      value = info.length > 5 ? Number(existingData?.value) + 5 * 5 + 10 * (infovalue.length - 5) : Number(existingData?.value) + 5 * infovalue.length;
+      value = infovalue.length > 5 ? Number(existingData?.value) + 5 * 5 + 10 * (infovalue.length - 5) : Number(existingData?.value) + 5 * infovalue.length;
 
       if (userData) {
           userData.name = name;
