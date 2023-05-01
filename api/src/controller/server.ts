@@ -7,26 +7,26 @@ import isEmpty from "../utils/isEmpty";
 export const getBaseNft = async (req: Request, res: Response ) => {
     try {
         let data = await NFT("base_nfts").find({}).sort({value: "desc"});
-        return res.status(200).json({code: 200, data: data, message: 'sucsess'});
+        return res.status(200).json({code: 200, data: data, message: 'success'});
     } catch (err) {
         console.log(err);
-        return res.status(500).json({code: 500, message: "server error!!!"});
+        return res.status(500).json({code: 500, message: "server crashed, please check the logs"});
     }
 }
 
 export const getUserNft = async (req: Request, res: Response) => {
   try {
 
-        let { user_name } = req.body;
+        // let { user_name } = req.body;
 
-        if (isEmpty(user_name)) {
-          return res.status(400).json({code: 400, message: "invalid request!!!"});
-        }
-        let data = await NFT(user_name).find({}).sort({value: "desc"});
-        return res.status(200).json({code: 200, data: data, message: 'sucsess'});
+        // if (isEmpty(user_name)) {
+        //   return res.status(400).json({code: 400, message: "invalid collection name."});
+        // }
+        let data = await NFT('user_yash').find({}).sort({value: "desc"});
+        return res.status(200).json({code: 200, data: data, message: 'success'});
     } catch (err) {
         console.log(err);
-        return res.status(500).json({code: 500, message: "server error!!!"});
+        return res.status(500).json({code: 500, message: "server crashed, please check the logs"});
     }
 }
 
@@ -37,7 +37,7 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
       let { _id, name, image, value, info, user_name} = req.body;
 
       if (isEmpty(_id) || isEmpty(name) || isEmpty(image) || isEmpty(info) || isEmpty(user_name) || isEmpty(value)) {
-        return res.status(400).json({code: 400, message: "invalid request!!1"});
+        return res.status(400).json({code: 400, message: "Some fields missing or is empty."});
       }
 
       let nftschema = NFT(user_name);
@@ -50,7 +50,7 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
       let existingData = await baseschema.findById(new mongoose.Types.ObjectId(_id));
 
       if (isEmpty(existingData)) {
-        return res.status(400).json({code: 400, message: "invalid request!!!"});
+        return res.status(400).json({code: 400, message: "Base Nft collection is Empty!"});
       }
 
       value = info.length > 5 ? Number(existingData?.value) + 5 * 5 + 10 * (infovalue.length - 5) : Number(existingData?.value) + 5 * infovalue.length;
@@ -78,6 +78,6 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
 
   } catch (err) {
       console.log(err);
-      return res.status(500).json({code: 500, message: "server error!!!"});
+      return res.status(500).json({code: 500, message: "server crashed, please check the logs"});
   }
 }
