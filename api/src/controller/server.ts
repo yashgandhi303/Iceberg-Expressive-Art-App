@@ -16,12 +16,6 @@ export const getBaseNft = async (req: Request, res: Response ) => {
 
 export const getUserNft = async (req: Request, res: Response) => {
   try {
-
-        // let { user_name } = req.body;
-
-        // if (isEmpty(user_name)) {
-        //   return res.status(400).json({code: 400, message: "invalid collection name."});
-        // }
         let data = await NFT('user_yash').find({}).sort({value: "desc"});
         return res.status(200).json({code: 200, data: data, message: 'success'});
     } catch (err) {
@@ -40,23 +34,19 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
       }
 
       let nftschema = NFT('user_yash');
-
       let baseschema = NFT('base_nfts');
 
-        
-      
       let userData = await nftschema.findById(new mongoose.Types.ObjectId(_id));
       let existingData = await baseschema.findById(new mongoose.Types.ObjectId(_id));
+
       let infovalue = info.split(" ");
       value = infovalue.length > 5 ? Number(existingData?.value) + 5 * 5 + 10 * (infovalue.length - 5) : Number(existingData?.value) + 5 * infovalue.length;
+
       if (isEmpty(existingData)) {
         return res.status(400).json({code: 400, message: "Base Nft collection is Empty!"});
       }
 
       if (userData) {
-
-          
-          
           userData.name = name;
           userData.value = value;
           userData.info = info;
@@ -67,6 +57,7 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
           if ( String(info) === String(existingData?.info)) {
             return res.status(400).json({code: 400, message: "we cannot create add this data because info has not changed!"});
           }
+
           let createdata = new nftschema({
             _id: new mongoose.Types.ObjectId(_id),
             name: String(existingData?.name),
