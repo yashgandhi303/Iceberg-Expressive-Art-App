@@ -33,14 +33,13 @@ export const getUserNft = async (req: Request, res: Response) => {
 export const createAndUpdateNft = async (req: Request, res: Response ) => {
     
   try {
+      let { _id, name, image, value, info } = req.body;
 
-      let { _id, name, image, value, info, user_name} = req.body;
-
-      if (isEmpty(_id) || isEmpty(name) || isEmpty(image) || isEmpty(info) || isEmpty(user_name) || isEmpty(value)) {
+      if (isEmpty(_id) || isEmpty(name) || isEmpty(image) || isEmpty(info) || isEmpty(value)) {
         return res.status(400).json({code: 400, message: "Some fields missing or is empty."});
       }
 
-      let nftschema = NFT(user_name);
+      let nftschema = NFT('user_yash');
 
       let baseschema = NFT('base_nfts');
 
