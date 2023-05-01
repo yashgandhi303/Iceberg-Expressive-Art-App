@@ -20,7 +20,7 @@ export const getUserNft = async (req: Request, res: Response) => {
         let { user_name } = req.body;
 
         if (isEmpty(user_name)) {
-          return res.status(400).json({code: 400, message: "invalid request!!1"});
+          return res.status(400).json({code: 400, message: "invalid request!!!"});
         }
         let data = await NFT(user_name).find({}).sort({value: "desc"});
         return res.status(200).json({code: 200, data: data, message: 'sucsess'});
@@ -49,8 +49,8 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
       let userData = await nftschema.findById(new mongoose.Types.ObjectId(_id));
       let existingData = await baseschema.findById(new mongoose.Types.ObjectId(_id));
 
-      if (isEmpty(userData) || isEmpty(existingData)) {
-        return res.status(400).json({code: 400, message: "invalid request!!1"});
+      if (isEmpty(existingData)) {
+        return res.status(400).json({code: 400, message: "invalid request!!!"});
       }
 
       value = info.length > 5 ? Number(existingData?.value) + 5 * 5 + 10 * (infovalue.length - 5) : Number(existingData?.value) + 5 * infovalue.length;
