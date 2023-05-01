@@ -43,7 +43,7 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
 
       let baseschema = NFT('base_nfts');
 
-      let infovalue = info.split(" ");      
+        
       
       let userData = await nftschema.findById(new mongoose.Types.ObjectId(_id));
       let existingData = await baseschema.findById(new mongoose.Types.ObjectId(_id));
@@ -52,9 +52,10 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
         return res.status(400).json({code: 400, message: "Base Nft collection is Empty!"});
       }
 
-      value = infovalue.length > 5 ? Number(existingData?.value) + 5 * 5 + 10 * (infovalue.length - 5) : Number(existingData?.value) + 5 * infovalue.length;
-
       if (userData) {
+        
+          let infovalue = info.split(" ");
+          value = infovalue.length > 5 ? Number(existingData?.value) + 5 * 5 + 10 * (infovalue.length - 5) : Number(existingData?.value) + 5 * infovalue.length;
           userData.name = name;
           userData.value = value;
           userData.info = info;
@@ -65,10 +66,10 @@ export const createAndUpdateNft = async (req: Request, res: Response ) => {
 
           let createdata = new nftschema({
             _id: new mongoose.Types.ObjectId(_id),
-            name: name,
-            image: image,
-            value: value,
-            info: info,
+            name: String(existingData?.name),
+            image: String(existingData?.image),
+            value: Number(existingData?.value),
+            info: String(existingData?.info),
         });
 
         await createdata.save();
