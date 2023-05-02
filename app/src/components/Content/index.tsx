@@ -1,5 +1,5 @@
-import react, { useEffect } from "react";
-import { Col, Row, Card, Space } from "antd";
+import { useEffect } from "react";
+import { Col, Row } from "antd";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
 import "../../styles/style.css";
@@ -7,8 +7,10 @@ import Nft from "../NFT";
 
 function Content() {
   const { nft } = useTypedSelector((state) => state.nft);
-  const { userNft  } = useTypedSelector((state) => state.userNft);
+  const { userNft } = useTypedSelector((state) => state.userNft);
   const { fetchBaseNfts, fetchUserNfts } = useActions();
+
+  
   useEffect(() => {
     fetchBaseNfts();
     fetchUserNfts();
@@ -48,7 +50,7 @@ function Content() {
               //     </p>
               //   </div>
               // </Card>
-              <Col span={4} style={{padding: "8px"}}>
+              <Col span={4} style={{ padding: "8px" }}>
                 <Nft
                   key={key}
                   _id={value._id}
@@ -56,6 +58,7 @@ function Content() {
                   name={value.name}
                   value={value.value}
                   info={value.info}
+                  type="create"
                 />
               </Col>
             ))
@@ -89,7 +92,7 @@ function Content() {
               //     </p>
               //   </div>
               // </Card>
-              <Col span={4} style={{padding: "8px"}}>
+              <Col span={4} style={{ padding: "8px" }}>
                 <Nft
                   key={key}
                   _id={value._id}
@@ -97,6 +100,7 @@ function Content() {
                   name={value.name}
                   value={value.value}
                   info={value.info}
+                  type="edit"
                 />
               </Col>
             ))
