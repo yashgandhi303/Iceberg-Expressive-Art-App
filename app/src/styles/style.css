@@ -13,6 +13,7 @@
     offset-distance: 100%; */
     background-color: #333;
     color: white;
+    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
