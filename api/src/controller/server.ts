@@ -51,8 +51,6 @@ export const createAndUpdateNft = async (req: Request, res: Response) => {
       new mongoose.Types.ObjectId(_id)
     );
 
-    
-
     // value =
     //   infovalue.length > 5
     //     ? Number(existingData?.value) + 5 * 5 + 10 * (infovalue.length - 5)
@@ -66,23 +64,29 @@ export const createAndUpdateNft = async (req: Request, res: Response) => {
 
     let temp = info
       .split(" ")
-      .filter((x: any) => x && x !== " ")
-      .map((x: any) => x.trim());
+      .filter((x: String) => x && x !== " ")
+      .map((x: String) => x.trim());
+
+    let finalinfo = temp.join(" ");
+    temp = temp?.map((x: String) => x.replace(/[^a-zA-Z0-9 ]/g, ""));
+    temp = temp?.map((x: String) => x.toUpperCase());
 
     let baseinfo = existingData?.info
       .split(" ")
-      .filter((x: any) => x && x !== " ")
-      .map((x: any) => x.trim());
-    let finalinfo = temp.join(" ");
+      .filter((x: String) => x && x !== " ")
+      .map((x: String) => x.replace(/[^a-zA-Z0-9 ]/g, ""))
+      .map((x: String) => x.toUpperCase());
 
-    let upcount = 0;  // new word count
-    let decount = 0;  // deleted baseword count
+    // baseinfo=baseinfo?.map((x: any) => x.replace(/^a-zA-Z0-9 ]/g, ""));
+
+    let upcount = 0; // new word count
+    let decount = 0; // deleted baseword count
     let templeave: string | string[] = [];
     for (let x of temp) {
-      if (baseinfo?.includes(x)) {
+      if (baseinfo?.includes(x)) {  
         if (templeave.includes(x)) {
           upcount = upcount + 1;
-        } else {
+      } else {
           templeave.push(x);
         }
       } else {
@@ -94,13 +98,17 @@ export const createAndUpdateNft = async (req: Request, res: Response) => {
     if (baseinfo) {
       for (let y of baseinfo) {
         if (!temp?.includes(y)) {
-          decount = decount + 1;             // deleted baseword count
-        }  
+          decount = decount + 1; // deleted baseword count
+        }
       }
     }
-    
-    value = upcount > 5 ?  Number(existingData?.value) + 5 * 5 + (upcount - 5 ) * 10 : Number(existingData?.value) + 5 * upcount;
-    value = decount > 5 ? value - 5 * 5 - (decount - 5) * 10 : value - 5 * decount;
+
+    value =
+      upcount > 5
+        ? Number(existingData?.value) + 5 * 5 + (upcount - 5) * 10
+        : Number(existingData?.value) + 5 * upcount;
+    value =
+      decount > 5 ? value - 5 * 5 - (decount - 5) * 10 : value - 5 * decount;
 
     if (userData) {
       userData.name = name;
@@ -111,13 +119,11 @@ export const createAndUpdateNft = async (req: Request, res: Response) => {
       return res.status(202).json({ code: 202, message: "updated NFT" });
     } else {
       if (String(info) === String(existingData?.info)) {
-        return res
-          .status(400)
-          .json({
-            code: 400,
-            message:
-              "we cannot create add this data because info has not changed!",
-          });
+        return res.status(400).json({
+          code: 400,
+          message:
+            "we cannot create add this data because info has not changed!",
+        });
       }
 
       let createdata = new nftschema({
