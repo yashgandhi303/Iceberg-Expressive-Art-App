@@ -10,10 +10,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%); */
-  background-image: linear-gradient(to left bottom, #052837, #00556a, #00878a, #00ba8f, #12eb79);
-
-
+  background-image: radial-gradient(circle, #12eb79 0%,  #00878a 100%);
+  /* background-image: linear-gradient(to left bottom, #052837, #00556a, #00878a, #00ba8f, #12eb79); */
 }
 
 code {
