@@ -7,23 +7,23 @@ import { useActions } from "../../hooks/useActions";
 import "../../styles/style.css";
 import Nft from "../NFT";
 
-function Content() {
-  const { nft } = useTypedSelector((state) => state.nft);
+function UserNFT() {
+  const { userNft } = useTypedSelector((state) => state.userNft);
   const { loading } = useTypedSelector((state) => state.loading);
-  const { fetchBaseNfts, fetchUserNfts } = useActions();
+  const { fetchUserNfts } = useActions();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchdata = async () => {
-      await dispatch({ type: dataLoadingTypes.dataLoadingFail });
-      await fetchBaseNfts();
-      await fetchUserNfts();
       await dispatch({ type: dataLoadingTypes.dataLoadingSuccess });
+      await fetchUserNfts();
+      await dispatch({ type: dataLoadingTypes.dataLoadingFail });
     };
     fetchdata();
   }, []);
 
-  return loading ? (
+  console.log(loading);
+  return !loading ? (
     <div
       style={{
         marginTop: " 8px",
@@ -31,11 +31,11 @@ function Content() {
       }}
     >
       <div>
-        <h2>BaseNFT</h2>
+        <h2>UserNFT</h2>
       </div>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        {nft
-          ? nft.map((value: any, key: any) => (
+      <Row>
+        {userNft
+          ? userNft.map((value: any, key: any) => (
               // <Card
               //   size="small"
               //   title={<p style={{ textAlign: "center" }}>{value.name}</p>}
@@ -66,18 +66,15 @@ function Content() {
                   name={value.name}
                   value={value.value}
                   info={value.info}
-                  type="create"
+                  type="edit"
                 />
               </Col>
             ))
           : ""}
-      </div>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <Button type="link" href="/usernft">
-          <p style={{ fontSize: "18px", fontWeight: "bold" }}>
-            {" "}
-            {"GoTo UserNFT >"}
-          </p>
+      </Row>
+      <div style={{display: 'flex', justifyContent: 'space-around'}}>
+        <Button type="link" href="/">
+          <p style={{fontSize: "18px", fontWeight: 'bold'}}> {"< GoTo BaseNFT"}</p>
         </Button>
       </div>
     </div>
@@ -86,4 +83,4 @@ function Content() {
   );
 }
 
-export default Content;
+export default UserNFT;
