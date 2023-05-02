@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Content from "./components/Content";
 import UserNFT from "./components/UserNFT";
-import { BrowserRouter, Router, Route, Routes  } from "react-router-dom";
+import { BrowserRouter, Route, Routes  } from "react-router-dom";
 function App() {
   return (
     <BrowserRouter>

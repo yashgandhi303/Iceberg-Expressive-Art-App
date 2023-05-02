@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Divider, notification } from "antd";
+import { Button, Divider, Input, notification } from "antd";
 import axios from "axios";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -30,12 +30,31 @@ function Nft(prop: any) {
       .split(" ")
       .filter((x) => x && x !== " ")
       .map((x) => x.trim());
+
+    let baseinfo = info
+      .split(" ")
+      .filter((x: any) => x && x !== " ")
+      .map((x: any) => x.trim());
     let finalinfo = temp.join(" ");
 
-    if (temp.length > 10) {
+    let count = 0;
+    let templeave: string | string[] = [];
+    for (let x of temp) {
+      if (baseinfo.includes(x)) {
+        if (templeave.includes(x)) {
+          count = count + 1;
+        } else {
+          templeave.push(x);
+        }
+      } else {
+        count = count + 1;
+      }
+    }
+    console.log(count);
+    if (count > 10) {
       api["error"]({
         message: "Cannot Creat NFT!!!",
-        description: "The count of word is less than 10 and T",
+        description: "The count of word is less than 10",
       });
     } else if (finalinfo === info) {
       api["error"]({
@@ -83,7 +102,7 @@ function Nft(prop: any) {
           borderStyle: "solid",
           borderColor: "grey",
           boxShadow: "2px 4px #888888",
-          height: "410px",
+          height: "420px",
         }}
         onMouseEnter={() => setHover(info)}
         onMouseLeave={() => setLeave()}
@@ -117,19 +136,20 @@ function Nft(prop: any) {
         <div style={{ display: "flex", justifyContent: "space-around" }}>
           <div
             style={{
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
               width: "80%",
               textAlign: "center",
             }}
           >
-            <input
-              disabled={!isHovering || type === "edit"}
-              style={{ fontSize: "12px", textAlign: "center", width: "100%" }}
-              value={!isHovering ? info : editInfo}
-              onChange={onChange}
-            ></input>
+            {type === "edit" ? (
+              <p>{info}</p>
+            ) : (
+              <Input
+                disabled={!isHovering}
+                style={{ fontSize: "12px", textAlign: "center", width: "100%" }}
+                value={!isHovering ? info : editInfo}
+                onChange={onChange}
+              ></Input>
+            )}
           </div>
         </div>
         {type === "create" ? (
