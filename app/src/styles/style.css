@@ -1,5 +1,5 @@
 .nav {
-    position: fixed;
+  /* position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -10,8 +10,11 @@
     padding-left: 4px;
     backdrop-filter: blur(20px);
     box-shadow: bisque;
-    offset-distance: 100%;
-   
-   
-    
-}
+    offset-distance: 100%; */
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }

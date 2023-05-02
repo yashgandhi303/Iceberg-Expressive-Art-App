@@ -7,7 +7,7 @@ export const fetchBaseNfts = () => {
     try {
       dispatch({ type: nftActionTypes.FETCH_Base_NFT });
       const response = await axios.get(
-       'http://192.168.103.64:8080/iceberg/basenft'
+       'http://localhost:8080/iceberg/basenft'
       );
       console.log(response);
       setTimeout(() => {
