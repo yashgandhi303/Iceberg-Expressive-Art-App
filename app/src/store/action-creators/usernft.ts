@@ -9,7 +9,6 @@ export const fetchUserNfts = () => {
       const response = await axios.get(
        'http://localhost:8080/iceberg/usernft'
       );
-      console.log(response);
       setTimeout(() => {
         dispatch({
           type: userNftActionTypes.FETCH_User_NFT_SUCCESS,

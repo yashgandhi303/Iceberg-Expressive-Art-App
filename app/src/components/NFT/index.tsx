@@ -51,7 +51,6 @@ function Nft(prop: any) {
         count = count + 1;
       }
     }
-    console.log(count);
     if (count > 10) {
       api["error"]({
         message: "Cannot Creat NFT!!!",
