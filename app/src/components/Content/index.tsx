@@ -26,14 +26,14 @@ function Content() {
   return loading ? (
     <div
       style={{
-        marginTop: " 8px",
-        padding: "32px",
+        padding: "0px 32px 0px 32px",
+        minWidth: "320px",
       }}
     >
       <div>
-        <h2>BaseNFT</h2>
+        <h2 style={{color: '#95dbd5', padding: '8px'}}>BaseNFT</h2>
       </div>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <Row>
         {nft
           ? nft.map((value: any, key: any) => (
               // <Card
@@ -58,7 +58,7 @@ function Content() {
               //     </p>
               //   </div>
               // </Card>
-              <Col span={4} style={{ padding: "8px" }}>
+              <Col xl={4} md={8} lg={6} sm={12} style={{ padding: "8px" }}>
                 <Nft
                   key={key}
                   _id={value._id}
@@ -71,13 +71,12 @@ function Content() {
               </Col>
             ))
           : ""}
-      </div>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
+      </Row>
+      <div style={{ display: "flex", justifyContent: "space-around", marginTop: '12px' }}>
         <Button type="link" href="/usernft">
-          <p style={{ fontSize: "18px", fontWeight: "bold" }}>
-            {" "}
+          <span style={{ fontSize: "18px", fontWeight: "bold", color: "#95dbd5" }}>
             {"GoTo UserNFT >"}
-          </p>
+          </span>
         </Button>
       </div>
     </div>

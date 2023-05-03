@@ -4,6 +4,7 @@ import axios from "axios";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
+import "../../styles/style.css";
 
 function Nft(prop: any) {
   const { fetchUserNfts } = useActions();
@@ -93,79 +94,91 @@ function Nft(prop: any) {
     }
   };
   return (
-    <div>
-      <div
-        style={{
-          width: "260px",
-          borderRadius: "12px",
-          backgroundColor: "white",
-          borderStyle: "solid",
-          borderColor: "grey",
-          boxShadow: "2px 4px #888888",
-          height: "420px",
-        }}
-        onMouseEnter={() => setHover(info)}
-        onMouseLeave={() => setLeave()}
-      >
-        {contextHolder}
-        <div>
-          <p
-            style={{
-              fontSize: "12px",
-              textAlign: "center",
-              paddingTop: "8px",
-              fontWeight: "bold",
-            }}
-          >
-            {name}
-          </p>
-        </div>
-        <Divider type="horizontal" style={{ marginTop: "-4px" }}></Divider>
-        <div
+    <div
+      style={{
+        borderRadius: "12px",
+        backgroundColor: "#202427",
+        borderStyle: "solid",
+        borderColor: "grey",
+        boxShadow: "2px 4px #888888",
+        padding: "8px",
+      }}
+      onMouseEnter={() => setHover(info)}
+      onMouseLeave={() => setLeave()}
+    >
+      {contextHolder}
+      <div>
+        <p
           style={{
-            marginTop: "-12px",
-            paddingLeft: "8px",
-            paddingRight: "8px",
+            fontSize: "14px",
+            textAlign: "center",
+            paddingTop: "8px",
+            fontWeight: "bold",
+            color: '#95dbd5'
           }}
         >
-          <img src={image} style={{ width: "100%", borderRadius: "8px" }}></img>
-        </div>
-        <div>
-          <p style={{ fontSize: "12px", textAlign: "center" }}>{value}</p>
-        </div>
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <div
-            style={{
-              width: "80%",
-              textAlign: "center",
-            }}
-          >
-            {type === "edit" ? (
-              <p>{info}</p>
-            ) : (
-              <Input
-                disabled={!isHovering}
-                style={{ fontSize: "12px", textAlign: "center", width: "100%" }}
-                value={!isHovering ? info : editInfo}
-                onChange={onChange}
-              ></Input>
-            )}
-          </div>
-        </div>
-        {type === "create" ? (
-          <div style={{ textAlign: "center", marginTop: "8px" }}>
-            <Button
-              type="primary"
-              style={{ textAlign: "center" }}
-              onClick={() => createNFT(_id, name, image, value)}
-            >
-              create
-            </Button>
-          </div>
-        ) : (
-          ""
-        )}
+          {name}
+        </p>
       </div>
+      <Divider type="horizontal" style={{ marginTop: "-4px" }}></Divider>
+      <div
+        style={{
+          marginTop: "-12px",
+          paddingLeft: "8px",
+          paddingRight: "8px",
+        }}
+      >
+        <img src={image} style={{ width: "100%", borderRadius: "8px" }}></img>
+      </div>
+      <div>
+        <p
+          style={{ fontSize: "12px", textAlign: "center", fontWeight: "bold", color: '#95dbd5' }}
+        >
+          {value}
+        </p>
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <div
+          style={{
+            width: "80%",
+            textAlign: "center",
+          }}
+        >
+          {type === "edit" ? (
+            <div className="Animation">
+              <p
+                style={{
+                  whiteSpace: "nowrap",
+                  width: "100%",
+                  color: '#95dbd5'
+                }}
+              >
+                {info}
+              </p>
+            </div>
+          ) : (
+            <Input
+              disabled={!isHovering}
+              style={{ fontSize: "12px", textAlign: "center", width: "100%", backgroundColor: '#202427', color: '#95dbd5' }}
+              value={!isHovering ? info : editInfo}
+              onChange={onChange}
+            ></Input>
+          )}
+        </div>
+      </div>
+      {type === "create" ? (
+        <div style={{ textAlign: "center", marginTop: "8px" }}>
+          <Button
+            type="primary"
+            style={{ textAlign: "center", color: '#95dbd5' ,backgroundColor: '#202931'}}
+            onClick={() => createNFT(_id, name, image, value)}
+          >
+            create
+          </Button>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

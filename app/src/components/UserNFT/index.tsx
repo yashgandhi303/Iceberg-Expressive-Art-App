@@ -26,12 +26,12 @@ function UserNFT() {
   return !loading ? (
     <div
       style={{
-        marginTop: " 8px",
-        padding: "32px",
+        padding: "0px 32px 0px 32px",
+        minWidth: "320px",
       }}
     >
       <div>
-        <h2>UserNFT</h2>
+        <h2 style={{ color: "#95dbd5", padding: "8px" }}>UserNFT</h2>
       </div>
       <Row>
         {userNft
@@ -58,7 +58,7 @@ function UserNFT() {
               //     </p>
               //   </div>
               // </Card>
-              <Col span={4} style={{ padding: "8px" }}>
+              <Col xl={4} md={8} lg={6} sm={12} style={{ padding: "8px" }}>
                 <Nft
                   key={key}
                   _id={value._id}
@@ -72,9 +72,11 @@ function UserNFT() {
             ))
           : ""}
       </Row>
-      <div style={{display: 'flex', justifyContent: 'space-around'}}>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
         <Button type="link" href="/">
-          <p style={{fontSize: "18px", fontWeight: 'bold'}}> {"< GoTo BaseNFT"}</p>
+          <span style={{ fontSize: "18px", fontWeight: "bold", color: "#95dbd5" }}>
+            {"< GoTo BaseNFT"}
+          </span>
         </Button>
       </div>
     </div>
