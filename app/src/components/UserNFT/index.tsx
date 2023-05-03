@@ -4,18 +4,24 @@ import { Button, Col, Row } from "antd";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { dataLoadingTypes } from "../../store/types/loading";
 import { useActions } from "../../hooks/useActions";
-import isEmpty from "../utils/isEmpty";
 import "../../styles/style.css";
 import Nft from "../NFT";
-import { CChart } from "@coreui/react-chartjs";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 function UserNFT() {
   const { userNft } = useTypedSelector((state) => state.userNft);
   const { nft } = useTypedSelector((state) => state.nft);
   const { loading } = useTypedSelector((state) => state.loading);
-  const [chatname, setChartName] = useState([]);
-  const [chartBaseNft, setChartBaseNft] = useState([]);
-  const [userChartNft, setUserChartNft] = useState([]);
+  const [chardata, setChatDatas] = useState([]);
   const { fetchUserNfts, fetchBaseNfts } = useActions();
   const dispatch = useDispatch();
 
@@ -38,23 +44,22 @@ function UserNFT() {
   }, [nft, userNft]);
 
   const setChartData = () => {
-    let chartnames: any[] = [];
-    let basenftvalues: any[] = [];
-    let usernftvalues: any[] = [];
+    let chartdatas: any[] = [];
 
     userNft.forEach((ele: any) => {
-      chartnames.push(ele.name);
       let temp = nft.filter((v: any) => {
         return v._id === ele._id;
       });
 
-      usernftvalues.push(ele.value);
-      basenftvalues.push(temp[0].value);
+      let data = {
+        name: ele.name,
+        BaseNFT: temp[0].value,
+        UserNFT: ele.value,
+      };
+      chartdatas.push(data);
     });
 
-    setChartName(chartnames);
-    setChartBaseNft(basenftvalues);
-    setUserChartNft(usernftvalues);
+    setChatDatas(chartdatas);
   };
 
   return !loading ? (
@@ -68,30 +73,25 @@ function UserNFT() {
         <Row>
           <Col xl={6} md={4} lg={2} sm={0}></Col>
           <Col xl={12} md={18} lg={20} sm={24}>
-            <CChart
-              type="line"
-              data={{
-                labels: chatname,
-                datasets: [
-                  {
-                    label: "BaseNFT",
-                    backgroundColor: "rgba(220, 220, 220, 0.2)",
-                    borderColor: "rgba(220, 220, 220, 1)",
-                    pointBackgroundColor: "rgba(220, 220, 220, 1)",
-                    pointBorderColor: "#fff",
-                    data: chartBaseNft,
-                  },
-                  {
-                    label: "UserNFT",
-                    backgroundColor: "rgba(151, 187, 205, 0.2)",
-                    borderColor: "rgba(151, 187, 205, 1)",
-                    pointBackgroundColor: "rgba(151, 187, 205, 1)",
-                    pointBorderColor: "#fff",
-                    data: userChartNft,
-                  },
-                ],
-              }}
-            />
+            <ResponsiveContainer width="100%" height={500}>
+              <BarChart
+                data={chardata}
+                margin={{
+                  top: 20,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="UserNFT" stackId="a" fill="#8884d8" />
+                <Bar dataKey="BaseNFT" stackId="a" fill="#82ca9d" />
+              </BarChart>
+            </ResponsiveContainer>
           </Col>
         </Row>
       </div>
