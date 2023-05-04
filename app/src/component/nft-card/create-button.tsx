@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Button, notification } from "antd";
 import { useActions } from "../../hooks/useActions";
 
