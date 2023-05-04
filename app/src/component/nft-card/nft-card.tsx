@@ -39,7 +39,7 @@ export const NFTCard = ({ key, user, type }: any) => {
             </div>
           ) : (
             <TextArea
-              autoSize
+              autoSize={{ maxRows: 3 }}
               disabled={!isHovering}
               className="custom-input"
               value={!isHovering ? info : editInfo}
