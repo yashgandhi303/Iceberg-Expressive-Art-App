@@ -25,7 +25,7 @@ export const fetchBaseNfts = () => {
 };
 
 export const createAndUpdate = (reqData: any) => {
-  return async (response: any) => {
+  return async () => {
     try {
       const response = await axios.post(
         "http://localhost:8080/iceberg/cunft",

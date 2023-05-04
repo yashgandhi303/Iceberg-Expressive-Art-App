@@ -55,14 +55,13 @@ export const CreateBtn = ({ user, editInfo }: any) => {
       });
     } else {
       let reqData = {
-        _id: _id,
-        name: name,
-        image: image,
-        value: value,
+        _id,
+        name,
+        image,
+        value,
         info: finalinfo,
       };
       await createAndUpdate(reqData);
-
     }
   };
 
