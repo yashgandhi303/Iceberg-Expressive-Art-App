@@ -2,12 +2,14 @@ import axios from "axios";
 import { Button, notification } from "antd";
 import { useActions } from "../../hooks/useActions";
 
-const splitString = (info: string) => info.split(" ")
-  .filter((x: string) => x && x !== " ")
-  .map((x: string) => x.trim());
+const splitString = (info: string) =>
+  info
+    .split(" ")
+    .filter((x: string) => x && x !== " ")
+    .map((x: string) => x.trim());
 
 export const CreateBtn = ({ user, editInfo }: any) => {
-  const { fetchUserNfts } = useActions();
+  const { fetchUserNfts, createAndUpdate } = useActions();
   let { _id, name, image, value, info } = user;
   const [api, contextHolder] = notification.useNotification();
 
@@ -23,8 +25,8 @@ export const CreateBtn = ({ user, editInfo }: any) => {
     let count = 0;
     let templeave: string | string[] = [];
 
-    let temp = splitString(editInfo)
-    let baseinfo = splitString(info)
+    let temp = splitString(editInfo);
+    let baseinfo = splitString(info);
     let finalinfo = temp.join(" ");
 
     // if the user has given the same input as original
@@ -53,20 +55,21 @@ export const CreateBtn = ({ user, editInfo }: any) => {
         description: "The count of word should be less than 10",
       });
     } else {
-      let res = await axios.post("http://localhost:8080/iceberg/cunft", {
+      let reqData = {
         _id: _id,
         name: name,
         image: image,
         value: value,
         info: finalinfo,
-      });
-      if (res.data.code === 202) {
+      };
+      let res = await createAndUpdate(reqData);
+      if (res.code === 202) {
         api["success"]({
           message: "Update Success!",
           description: "The NFT updated successfully!",
         });
         await fetchUserNfts();
-      } else if (res.data.code === 201) {
+      } else if (res.code === 201) {
         api["success"]({
           message: "Create Success!",
           description: "The NFT created successfully!",
@@ -81,7 +84,6 @@ export const CreateBtn = ({ user, editInfo }: any) => {
     }
   };
 
-
   return (
     <>
       {contextHolder}
@@ -93,5 +95,5 @@ export const CreateBtn = ({ user, editInfo }: any) => {
         create
       </Button>
     </>
-  )
+  );
 };
