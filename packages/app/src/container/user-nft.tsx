@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Col, Row } from "antd";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { dataLoadingTypes } from "../store/types/loading";
 import { useActions } from "../hooks/useActions";
-import { NFTCard } from "../component";
-import { Chart } from './../component/chart';
+import { Chart, NFTCard } from "../component";
 import "../styles/user-nft.css";
 
 export const UserNFTContainer = () => {
@@ -70,12 +69,9 @@ export const UserNFTContainer = () => {
   return (
     <div className="user_nft">
       <div className="m-t-30">
-        <Row>
-          <Col xl={6} md={4} lg={2} sm={0}></Col>
-          <Col xl={12} md={18} lg={20} sm={24}>
-            <Chart data={chartData} />
-          </Col>
-        </Row>
+        <div className="res-chart">
+          <Chart data={chartData} />
+        </div>
       </div>
       <div>
         <h2 className="title">UserNFT</h2>

@@ -1,11 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Divider, Input } from "antd";
 import "../../styles/nft-card.css";
 import { CreateBtn } from "./create-button";
 
 const { TextArea } = Input;
 
-export const NFTCard = ({ key, user, type }: any) => {
+export const NFTCard = ({ user, type }: any) => {
   const [isHovering, setIsHovering] = useState(false);
   const [editInfo, setEditInfo] = useState("");
   

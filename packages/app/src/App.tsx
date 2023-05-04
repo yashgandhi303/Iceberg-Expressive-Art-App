@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import {
   BaseNFTContainer,
@@ -13,7 +14,7 @@ export const App = () => {
       <div>
         <Routes>
           <Route path="/" element={<BaseNFTContainer />} />
-          <Route path="/usernft" element={<UserNFTContainer />} />
+          <Route path="/user-nft" element={<UserNFTContainer />} />
         </Routes>
       </div>
     </BrowserRouter>

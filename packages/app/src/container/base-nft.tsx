@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Col, Row } from "antd";
 import { useTypedSelector } from "../hooks/useTypedSelector";
@@ -39,14 +39,14 @@ export const BaseNFTContainer = () => {
       </div>
       <Row>
         {base_nft.map((value: any, key: any) => (
-          <Col xl={4} md={8} lg={6} sm={12} className="p-8">
-            <NFTCard key={key} user={{ ...value }} type="create" />
+          <Col key={key} xl={4} md={8} lg={6} sm={12} className="p-8">
+            <NFTCard user={{ ...value }} type="create" />
           </Col>
         ))
         }
       </Row>
       <div className="action_button">
-        <Button type="link" href="/usernft">
+        <Button type="link" href="/user-nft">
           <span className="btn-span">
             {"GoTo UserNFT >"}
           </span>
