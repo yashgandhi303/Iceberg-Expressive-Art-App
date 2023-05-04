@@ -1,5 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
-// import bodyParser from 'body-parser';
+import express from 'express';
 import cors from 'cors';
 import routes from './routes';
 import { connector } from "./db/db";
@@ -16,9 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // Returns middleware th
 
 connector();
-// app.use('/', (req: express.Request, res: express.Response) => {
-//     res.status(200).json({ message: "Hello World!" })
-// });
 
-app.use('/iceberg', routes);// This means all route path preceed this path
+// This means all route path preceed this path
+app.use('/iceberg', routes);
+
 export { app };

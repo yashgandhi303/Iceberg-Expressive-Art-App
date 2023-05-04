@@ -51,11 +51,6 @@ export const createAndUpdateNft = async (req: Request, res: Response) => {
       new mongoose.Types.ObjectId(_id)
     );
 
-    // value =
-    //   infovalue.length > 5
-    //     ? Number(existingData?.value) + 5 * 5 + 10 * (infovalue.length - 5)
-    //     : Number(existingData?.value) + 5 * infovalue.length;
-
     if (isEmpty(existingData)) {
       return res
         .status(400)
@@ -77,20 +72,20 @@ export const createAndUpdateNft = async (req: Request, res: Response) => {
       .map((x: String) => x.replace(/[^a-zA-Z0-9 ]/g, ""))
       .map((x: String) => x.toUpperCase());
 
-    // baseinfo=baseinfo?.map((x: any) => x.replace(/^a-zA-Z0-9 ]/g, ""));
 
     let upcount = 0; // new word count
     let decount = 0; // deleted baseword count
     let templeave: string | string[] = [];
     for (let x of temp) {
-      if (baseinfo?.includes(x)) {  
+      if (baseinfo?.includes(x)) {
         if (templeave.includes(x)) {
           upcount = upcount + 1;
-      } else {
+        } else {
           templeave.push(x);
         }
       } else {
-        upcount = upcount + 1;                  // new word count
+        // new word count
+        upcount = upcount + 1;
       }
     }
 
@@ -98,7 +93,8 @@ export const createAndUpdateNft = async (req: Request, res: Response) => {
     if (baseinfo) {
       for (let y of baseinfo) {
         if (!temp?.includes(y)) {
-          decount = decount + 1; // deleted baseword count
+          // deleted baseword count
+          decount = decount + 1;
         }
       }
     }
@@ -122,7 +118,7 @@ export const createAndUpdateNft = async (req: Request, res: Response) => {
         return res.status(400).json({
           code: 400,
           message:
-            "we cannot create add this data because info has not changed!",
+            "we cannot create or add data because info has not changed!",
         });
       }
 
