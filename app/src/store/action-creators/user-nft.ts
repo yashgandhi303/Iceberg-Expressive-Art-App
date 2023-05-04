@@ -7,7 +7,7 @@ export const fetchUserNfts = () => {
     try {
       dispatch({ type: userNftActionTypes.FETCH_User_NFT });
       const response = await axios.get(
-       'http://localhost:8080/iceberg/usernft'
+       'http://localhost:8080/iceberg/getUserNft'
       );
       setTimeout(() => {
         dispatch({
@@ -18,7 +18,7 @@ export const fetchUserNfts = () => {
     } catch (e) {
       dispatch({
         type: userNftActionTypes.FETCH_User_NFT_ERROR,
-        payload: "Произошла ошибка при загрузке пользователей",
+        payload: "couldn't fetch user",
       });
     }
   };

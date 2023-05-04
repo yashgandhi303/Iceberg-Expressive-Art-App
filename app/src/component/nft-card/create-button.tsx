@@ -40,12 +40,12 @@ export const CreateBtn = ({ user, editInfo }: any) => {
     for (let x of temp) {
       if (baseinfo.includes(x)) {
         if (templeave.includes(x)) {
-          count = count + 1;
+          count += 1;
         } else {
           templeave.push(x);
         }
       } else {
-        count = count + 1;
+        count += 1;
       }
     }
     if (count > 10) {
