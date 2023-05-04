@@ -1,6 +1,8 @@
 import { nftAction, nftActionTypes } from "../types/baseNft";
 import { Dispatch } from "redux";
+import { notification } from "antd";
 import axios from "axios";
+import { fetchUserNfts } from "./usernft";
 
 export const fetchBaseNfts = () => {
   return async (dispatch: Dispatch<nftAction>) => {
@@ -29,10 +31,29 @@ export const createAndUpdate = (reqData: any) => {
         "http://localhost:8080/iceberg/cunft",
         reqData
       );
-      console.log(response.data);
-      return response.data;
+      if (response.data.code === 202) {
+        await notification["success"]({
+          message: "Update Success!",
+          description: "The NFT updated successfully!",
+        });
+        await fetchUserNfts();
+      } else if (response.data.code === 201) {
+        await notification["success"]({
+          message: "Create Success!",
+          description: "The NFT created successfully!",
+        });
+        await fetchUserNfts();
+      } else {
+        await notification["error"]({
+          message: "Server Error!",
+          description: "Server Error!",
+        });
+      }
     } catch (e) {
-      return { code: 500 };
+      await notification["error"]({
+        message: "Server Error!",
+        description: "Server Error!",
+      });
     }
   };
 };

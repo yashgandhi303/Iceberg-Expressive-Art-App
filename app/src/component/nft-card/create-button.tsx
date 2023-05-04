@@ -8,7 +8,7 @@ const splitString = (info: string) =>
     .map((x: string) => x.trim());
 
 export const CreateBtn = ({ user, editInfo }: any) => {
-  const { fetchUserNfts, createAndUpdate } = useActions();
+  const { createAndUpdate } = useActions();
   let { _id, name, image, value, info } = user;
   const [api, contextHolder] = notification.useNotification();
 
@@ -61,25 +61,8 @@ export const CreateBtn = ({ user, editInfo }: any) => {
         value: value,
         info: finalinfo,
       };
-      let res = await createAndUpdate(reqData);
-      if (res.code === 202) {
-        api["success"]({
-          message: "Update Success!",
-          description: "The NFT updated successfully!",
-        });
-        await fetchUserNfts();
-      } else if (res.code === 201) {
-        api["success"]({
-          message: "Create Success!",
-          description: "The NFT created successfully!",
-        });
-        await fetchUserNfts();
-      } else {
-        return api["error"]({
-          message: "Server Error!",
-          description: "Server Error!",
-        });
-      }
+      await createAndUpdate(reqData);
+
     }
   };
 
