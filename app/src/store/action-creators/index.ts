@@ -1,7 +1,10 @@
-import * as nftActionCreators from './basenft'
-import * as userNftActionCreators from './usernft'
+import * as nftActionCreators from './base-nft';
+import * as userNftActionCreators from './user-nft';
+import * as createActionCreators from './create-nft';
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    ...nftActionCreators,
-    ...userNftActionCreators
+  ...nftActionCreators,
+  ...createActionCreators,
+  ...userNftActionCreators,
 }

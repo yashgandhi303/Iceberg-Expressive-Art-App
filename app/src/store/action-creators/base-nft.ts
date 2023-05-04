@@ -6,10 +6,7 @@ export const fetchBaseNfts = () => {
   return async (dispatch: Dispatch<nftAction>) => {
     try {
       dispatch({ type: nftActionTypes.FETCH_Base_NFT });
-      const response = await axios.get(
-       'http://localhost:8080/iceberg/basenft'
-      );
-      console.log(response);
+      const response = await axios.get("http://localhost:8080/iceberg/getBaseNft");
       setTimeout(() => {
         dispatch({
           type: nftActionTypes.FETCH_Base_NFT_SUCCESS,
@@ -19,7 +16,7 @@ export const fetchBaseNfts = () => {
     } catch (e) {
       dispatch({
         type: nftActionTypes.FFETCH_Base_NFT_ERROR,
-        payload: "Произошла ошибка при загрузке пользователей",
+        payload: "couldn't fetch user",
       });
     }
   };

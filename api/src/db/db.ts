@@ -7,7 +7,7 @@ export const connector = () => {
     useUnifiedTopology: boolean
   }
   
-
+  // TODO: import from config or env
   mongoose
     .connect('mongodb+srv://iceberguser:accesstoassessment@icebergassess.rbjxgi4.mongodb.net/iceberglabsassess?ssl=true&authSource=admin')
     .then(() => {

@@ -3,6 +3,12 @@ import { NFT } from "../model/basenft";
 import mongoose from "mongoose";
 import isEmpty from "../utils/isEmpty";
 
+const splitString = (info: String) => info.split(" ")
+  .filter((x: String) => x && x !== " ")
+  .map((x: String) => x.replace(/[^a-zA-Z0-9 ]/g, ""))
+  .map((x: String) => x.trim());
+
+// get Basenft data
 export const getBaseNft = async (req: Request, res: Response) => {
   try {
     let data = await NFT("base_nfts").find({}).sort({ value: "desc" });
@@ -15,8 +21,11 @@ export const getBaseNft = async (req: Request, res: Response) => {
   }
 };
 
+// get usernft data
 export const getUserNft = async (req: Request, res: Response) => {
   try {
+    // TODO: we can create dynamic user (user_yash, user_dawich, etc) 
+    // based on input we get in request (client)
     let data = await NFT("user_yash").find({}).sort({ value: "desc" });
     return res.status(200).json({ code: 200, data: data, message: "success" });
   } catch (err) {
@@ -27,10 +36,12 @@ export const getUserNft = async (req: Request, res: Response) => {
   }
 };
 
+// create or update data from user collection
 export const createAndUpdateNft = async (req: Request, res: Response) => {
   try {
     let { _id, name, image, value, info } = req.body;
 
+    // validation
     if (
       isEmpty(_id) ||
       isEmpty(name) ||
@@ -51,50 +62,36 @@ export const createAndUpdateNft = async (req: Request, res: Response) => {
       new mongoose.Types.ObjectId(_id)
     );
 
-    // value =
-    //   infovalue.length > 5
-    //     ? Number(existingData?.value) + 5 * 5 + 10 * (infovalue.length - 5)
-    //     : Number(existingData?.value) + 5 * infovalue.length;
-
+    // what if base nft is only empty or doesn't exist
     if (isEmpty(existingData)) {
       return res
         .status(400)
         .json({ code: 400, message: "Base Nft collection is Empty!" });
     }
 
-    let temp = info
-      .split(" ")
-      .filter((x: String) => x && x !== " ")
-      .map((x: String) => x.trim());
-
-    let finalinfo = temp.join(" ");
-    temp = temp?.map((x: String) => x.replace(/[^a-zA-Z0-9 ]/g, ""));
-    temp = temp?.map((x: String) => x.toUpperCase());
-
-    let baseinfo = existingData?.info
-      .split(" ")
-      .filter((x: String) => x && x !== " ")
-      .map((x: String) => x.replace(/[^a-zA-Z0-9 ]/g, ""))
-      .map((x: String) => x.toUpperCase());
-
-    // baseinfo=baseinfo?.map((x: any) => x.replace(/^a-zA-Z0-9 ]/g, ""));
-
     let upcount = 0; // new word count
     let decount = 0; // deleted baseword count
     let templeave: string | string[] = [];
+    templeave = [];
+
+    // all the logic for value and info field
+    let temp = splitString(info)
+    // above and below, we are removing unnecessary space,
+    // removing characters, AS WE WANT ONLY WORDS
+    let baseinfo = splitString(existingData?.info)
+
     for (let x of temp) {
-      if (baseinfo?.includes(x)) {  
+      if (baseinfo?.includes(x)) {
         if (templeave.includes(x)) {
           upcount = upcount + 1;
-      } else {
+        } else {
           templeave.push(x);
         }
       } else {
-        upcount = upcount + 1;                  // new word count
+        upcount = upcount + 1; // new word count
       }
     }
 
-    templeave = [];
     if (baseinfo) {
       for (let y of baseinfo) {
         if (!temp?.includes(y)) {
@@ -115,14 +112,18 @@ export const createAndUpdateNft = async (req: Request, res: Response) => {
       userData.value = value;
       userData.info = info;
       userData.image = image;
+
+      // save the data to the user collection
       await userData.save();
       return res.status(202).json({ code: 202, message: "updated NFT" });
     } else {
+      
+      // validation
       if (String(info) === String(existingData?.info)) {
         return res.status(400).json({
           code: 400,
           message:
-            "we cannot create add this data because info has not changed!",
+            "we cannot create or add this data because info has not changed!",
         });
       }
 

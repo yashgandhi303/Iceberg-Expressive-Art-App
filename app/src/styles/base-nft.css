@@ -1,0 +1,21 @@
+.base_nft {
+  padding: 0px 32px;
+  min-width: 320px;
+}
+
+.base_nft .title {
+  color: rgb(149, 219, 213);
+  padding: 8px;
+}
+
+.base_nft .action_button {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 12px;
+}
+
+.base_nft .action_button .btn-span {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(149, 219, 213);
+}

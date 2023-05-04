@@ -1,20 +1,21 @@
 import "./App.css";
-import Header from "./components/Header";
-import Content from "./components/Content";
-import UserNFT from "./components/UserNFT";
+import {
+  BaseNFTContainer,
+  UserNFTContainer,
+  HeaderContainer
+} from "./container";
 import { BrowserRouter, Route, Routes  } from "react-router-dom";
-function App() {
+
+export const App = () => {
   return (
     <BrowserRouter>
-      <Header />
+      <HeaderContainer />
       <div>
         <Routes>
-          <Route path="/" element={<Content />} />
-          <Route path="/usernft" element={<UserNFT />} />
+          <Route path="/" element={<BaseNFTContainer />} />
+          <Route path="/usernft" element={<UserNFTContainer />} />
         </Routes>
       </div>
     </BrowserRouter>
   );
 }
-
-export default App;

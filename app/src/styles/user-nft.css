@@ -1,0 +1,29 @@
+.m-t-30 {
+  margin-top: 30px;
+}
+
+.p-8 {
+  padding: 8px;
+}
+
+.user_nft {
+  padding: 0px 32px 0px 32px;
+  min-width: 320px;
+}
+
+h2.title {
+  color: #95dbd5;
+  padding: 8px;
+}
+
+.user_nft .action_button {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 60px;
+}
+
+.user_nft .action_button .btn-span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #95dbd5;
+}
