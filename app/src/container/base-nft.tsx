@@ -40,16 +40,7 @@ export const BaseNFTContainer = () => {
       <Row>
         {base_nft.map((value: any, key: any) => (
           <Col xl={4} md={8} lg={6} sm={12} className="p-8">
-            <NFTCard
-              key={key}
-              user={{ ...value }}
-              // _id={value._id}
-              // image={value.image}
-              // name={value.name}
-              // value={value.value}
-              // info={value.info}
-              type="create"
-            />
+            <NFTCard key={key} user={{ ...value }} type="create" />
           </Col>
         ))
         }

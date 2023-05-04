@@ -2,6 +2,10 @@
   margin-top: -4px;
 }
 
+.hide {
+  display: none;
+}
+
 .m-t-8 {
   margin-top: 8px;
 }
@@ -62,11 +66,19 @@
 }
 
 .shared_card .custom-input {
-  font-size: 12px;
-  text-align: center;
-  width: 100%;
-  background-color: rgb(32, 36, 39);
   color: rgb(149, 219, 213);
+}
+
+.shared_card:hover .custom-input {
+  color: black;
+}
+
+.shared_card .action_btn {
+  display: none;
+}
+
+.shared_card:hover .action_btn {
+  display: block;
 }
 
 .shared_card .action_btn .create_btn {
