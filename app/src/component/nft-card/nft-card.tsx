@@ -5,17 +5,11 @@ import { CreateBtn } from "./create-button";
 
 const { TextArea } = Input;
 
-export const NFTCard = ({
-  key,
-  user,
-  type,
-  children,
-  ...props
-}: any) => {
-  let { name, image, value, info } = user;
-
+export const NFTCard = ({ key, user, type }: any) => {
   const [isHovering, setIsHovering] = useState(false);
   const [editInfo, setEditInfo] = useState("");
+  
+  let { name, image, value, info } = user;
 
   const setHover = (info: any) => {
     setIsHovering(true);
